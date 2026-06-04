@@ -1,7 +1,12 @@
 // ============================================
 // GSAP REGISTRATION
 // ============================================
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+if (typeof gsap !== 'undefined') {
+  const plugins = [];
+  if (typeof ScrollTrigger !== 'undefined') plugins.push(ScrollTrigger);
+  if (typeof TextPlugin !== 'undefined') plugins.push(TextPlugin);
+  if (plugins.length > 0) gsap.registerPlugin(...plugins);
+}
 
 // ============================================
 // ============================================
@@ -280,7 +285,8 @@ function initEarth() {
     blending: THREE.AdditiveBlending
   });
 
-  function spawnMeteor() {\n    if (meteors.length > 0) return; // Ensure only one meteor at a time
+  function spawnMeteor() {
+    if (meteors.length > 0) return; // Ensure only one meteor at a time
     // Spawn just outside the right or left edge of the screen, slightly behind the earth
     const isLeft = Math.random() > 0.5;
     const startX = isLeft ? -12 : 12; 
@@ -430,7 +436,6 @@ function initEarth() {
     earthMaterial.color.setHex(colors.earth);
     coreMat.color.setHex(colors.core);
     nodeMaterial.color.setHex(colors.node);
-    cursorLight.color.setHex(colors.light);
   };
 }
 
@@ -827,20 +832,22 @@ document.querySelectorAll('.btn').forEach(btn => {
 // ============================================
 const contactForm = document.querySelector('.contact-form');
 
-contactForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  const button = contactForm.querySelector('.btn');
-  const originalText = button.querySelector('span').textContent;
-  button.querySelector('span').textContent = 'Message Sent!';
-  button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+    const button = contactForm.querySelector('.btn');
+    const originalText = button.querySelector('span').textContent;
+    button.querySelector('span').textContent = 'Message Sent!';
+    button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
 
-  setTimeout(() => {
-    button.querySelector('span').textContent = originalText;
-    button.style.background = '';
-    contactForm.reset();
-  }, 3000);
-});
+    setTimeout(() => {
+      button.querySelector('span').textContent = originalText;
+      button.style.background = '';
+      contactForm.reset();
+    }, 3000);
+  });
+}
 
 // ============================================
 // SMOOTH SCROLL FOR ALL ANCHOR LINKS
@@ -886,9 +893,8 @@ window.addEventListener('load', () => {
 
   // Hide cursor on mobile
   if (window.innerWidth <= 768) {
-    cursorDot.style.display = 'none';
-    cursorRing.style.display = 'none';
-    cursorTrail.style.display = 'none';
+    if (cursorDot) cursorDot.style.display = 'none';
+    if (cursorDotsContainer) cursorDotsContainer.style.display = 'none';
     document.body.style.cursor = 'auto';
   }
 
@@ -942,18 +948,26 @@ function loadEarthTexture() {
   loader.load(
     'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
     (texture) => {
-      if (earth && earth.material) {
-        earth.material.map = texture;
-        earth.material.needsUpdate = true;
+      if (typeof earthGroup !== 'undefined' && earthGroup) {
+        earthGroup.children.forEach(child => {
+          if (child.isMesh && child.geometry.type === 'SphereGeometry') {
+            child.material.map = texture;
+            child.material.needsUpdate = true;
+          }
+        });
       }
     },
     undefined,
     () => {
       // Fallback: Create procedural Earth
       console.log('Using procedural Earth');
-      if (earth && earth.material) {
-        earth.material.color.setHex(0x2233ff);
-        earth.material.emissive.setHex(0x112244);
+      if (typeof earthGroup !== 'undefined' && earthGroup) {
+        earthGroup.children.forEach(child => {
+          if (child.isMesh && child.geometry.type === 'SphereGeometry') {
+            child.material.color.setHex(0x2233ff);
+            child.material.emissive.setHex(0x112244);
+          }
+        });
       }
     }
   );
@@ -971,9 +985,11 @@ const themeToggle = document.querySelector('.theme-switcher-toggle');
 const themePanel = document.querySelector('.theme-switcher-panel');
 const themeBtns = document.querySelectorAll('.theme-btn');
 
-themeToggle.addEventListener('click', () => {
-  themePanel.classList.toggle('active');
-});
+if (themeToggle && themePanel) {
+  themeToggle.addEventListener('click', () => {
+    themePanel.classList.toggle('active');
+  });
+}
 
 themeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1001,7 +1017,7 @@ themeBtns.forEach(btn => {
 
 // Close panel when clicking outside
 document.addEventListener('click', (e) => {
-  if (!e.target.closest('.theme-switcher')) {
+  if (themePanel && !e.target.closest('.theme-switcher')) {
     themePanel.classList.remove('active');
   }
 });

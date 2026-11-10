@@ -1,600 +1,527 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shreeji Kumawat — Mechanical Engineer</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <meta content="Mechanical Engineer specializing in Aerospace Engineering, CFD, FEA, and Robotics"
-    name="description" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Orbitron:wght@400;500;600;700;800;900&amp;display=swap"
-    rel="stylesheet" />
+  <meta name="description" content="Mechanical Engineer specializing in Aerospace Engineering, CFD, FEA, and Robotics" />
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/TextPlugin.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.0/build/three.min.js"></script>
-  <link href="style.css" rel="stylesheet" />
+  <link href="style.css?v=4" rel="stylesheet" />
 </head>
 
 <body>
-  <!-- GLOBAL NETWORK BACKGROUND -->
-  <canvas id="earth-canvas"></canvas>
-  <div class="stars-layer"></div>
-  <!-- THEME SWITCHER -->
-  <div class="theme-switcher">
-    <div class="theme-switcher-toggle">
-      <i class="fas fa-palette"></i>
-    </div>
-    <div class="theme-switcher-panel">
-      <h4>Select Theme</h4>
-      <div class="theme-options">
-        <button class="theme-btn active" data-theme="theme-default" style="--theme-color: #00e5ff;" title="Cosmic Cyan"></button>
-        <button class="theme-btn" data-theme="theme-gold" style="--theme-color: #FBBF24;" title="Orbital Gold"></button>
-        <button class="theme-btn" data-theme="theme-violet" style="--theme-color: #8B5CF6;" title="Plasma Violet"></button>
-        <button class="theme-btn" data-theme="theme-emerald" style="--theme-color: #10B981;" title="Emerald Plasma"></button>
-        <button class="theme-btn" data-theme="theme-mars" style="--theme-color: #FF5A36;" title="Mars Aerospace"></button>
-        <button class="theme-btn" data-theme="theme-arctic" style="--theme-color: #7DD3FC;" title="Arctic Ice"></button>
-        <button class="theme-btn" data-theme="theme-teal" style="--theme-color: #14B8A6;" title="Deep Teal & Copper"></button>
-      </div>
-    </div>
-  </div>
-  <!-- CUSTOM CURSOR WITH FLOWING DOTS -->
-  <div class="cursor-dots-container"></div>
-  <div class="cursor-dot"></div>
+  <canvas id="network" aria-hidden="true"></canvas>
+
   <!-- NAVIGATION -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo">
-        <span>Shreeji Kumawat</span>
-      </div>
-      <ul class="nav-links">
-        <li><a class="nav-link" href="#home">Home</a></li>
-        <li><a class="nav-link" href="#about">About</a></li>
-        <li><a class="nav-link" href="#publications">Publications</a></li>
-        <li><a class="nav-link" href="#experience">Experience</a></li>
-        <li><a class="nav-link" href="#projects">Projects</a></li>
-        <li><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-name">
-          <span class="name-line">Shreeji Kumawat</span>
-        </h1>
-        <div class="hero-title">
-          <span class="typing-text"></span>
-          <span class="cursor-blink">|</span>
-        </div>
-        <p class="hero-description">
-          Mechanical Engineering undergraduate student specializing in Aerospace systems, CFD Analysis, and Drone
-          Robotics.
-          Exploring the intersection of fluid dynamics, structural mechanics, and autonomous systems.
-        </p>
-        <div class="hero-stats">
-          <div class="stat-badge">
-            <i class="fas fa-trophy"></i>
-            <span>Multiple Hackathons</span>
-          </div>
-          <div class="stat-badge">
-            <i class="fas fa-graduation-cap"></i>
-            <span>CGPA 9.5</span>
-          </div>
-          <div class="stat-badge">
-            <i class="fas fa-code"></i>
-            <span>Published Research</span>
-          </div>
-        </div>
-        <div class="hero-buttons">
-          <a class="btn btn-primary" href="#projects">
-            <span>Explore Projects</span>
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        </div>
-        <div class="social-links">
-          <a aria-label="LinkedIn" class="social-link" href="https://www.linkedin.com/in/shreejik" target="_blank">
-            <i class="fab fa-linkedin"></i>
-          </a>
-          <a aria-label="GitHub" class="social-link" href="https://github.com/achilles-05" target="_blank">
-            <i class="fab fa-github"></i>
-          </a>
-          <a aria-label="Email" class="social-link" href="mailto:shreejikumawat@gmail.com">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">Shreeji Kumawat</a>
+      <nav class="nav-links" id="nav-links">
+        <a href="#about"><span class="mono">01</span> About</a>
+        <a href="#publications"><span class="mono">02</span> Publications</a>
+        <a href="#experience"><span class="mono">03</span> Experience</a>
+        <a href="#projects"><span class="mono">04</span> Projects</a>
+        <a href="#achievements"><span class="mono">05</span> Achievements</a>
+        <a href="#contact"><span class="mono">06</span> Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">
+          <i class="fas fa-sun icon-sun"></i>
+          <i class="fas fa-moon icon-moon"></i>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span>
+        </button>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <div class="mouse">
-        <div class="wheel"></div>
-      </div>
-      <div class="arrow">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </section>
-  <!-- ABOUT SECTION -->
-  <section class="section about-section" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">About Me</span>
-      </div>
-      <div class="about-content">
-        <div class="about-text">
-          <div class="about-intro">
-            <h3>Mechanical Engineer · Aerospace Enthusiast</h3>
-            <p>
-              Currently pursuing my Bachelor of Technology in Mechanical Engineering at Mahindra University,
-              Hyderabad, with a CGPA of 9.5. My passion lies at the intersection of aerospace systems,
-              computational fluid dynamics, and autonomous robotics.
-            </p>
-            <p>
-              I specialize in FEA, CFD analysis, turbulence modeling, fluid-structure interaction and drone vision
-              with extensive experience in ANSYS Fluent, ANSYS Mechanical, OpenFAST, and advanced simulation tools.
-            </p>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div class="hero-content" id="hero-content">
+          <p class="eyebrow">Mechanical Engineering · Aerospace · Robotics</p>
+          <h1 class="hero-name">Shreeji<br />Kumawat</h1>
+          <p class="hero-role"><span class="role-word" id="role-word">Aerospace Enthusiast</span></p>
+          <p class="hero-description">Mechanical Engineering (Honours) student at Monash University specializing in Aerospace systems, CFD Analysis, and Robotics &amp; Automation. Exploring the intersection of fluid dynamics, structural mechanics, and autonomous systems.</p>
+          <ul class="hero-facts">
+            <li>Monash University</li><li>CGPA 9.5</li><li>Published Research</li>
+          </ul>
+          <div class="hero-actions">
+            <a class="btn btn-solid" href="#projects">Explore Projects <i class="fas fa-arrow-right"></i></a>
+            <a class="btn btn-ghost" href="#contact">Get In Touch</a>
           </div>
-          <div class="education-card">
-            <div class="edu-icon">
-              <i class="fas fa-university"></i>
-            </div>
-            <div class="edu-content">
-              <h4>Bachelor of Technology</h4>
-              <p class="edu-field">Mechanical Engineering</p>
-              <p class="edu-university">Mahindra University, Hyderabad</p>
-              <p class="edu-year">Expected 2028</p>
-            </div>
-          </div>
-          <div class="about-stats">
-            <div class="stat-item">
-              <div class="stat-number" data-target="10">0</div>
-              <div class="stat-label">Projects</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="4">0</div>
-              <div class="stat-label">Internships</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="9.5">0</div>
-              <div class="stat-label">CGPA</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" data-target="100">0</div>
-              <div class="stat-label">% Scholarship</div>
-            </div>
-          </div>
-        </div>
-        <div class="skills-showcase">
-          <div class="skill-category">
-            <h4><i class="fas fa-cogs"></i> Technical Skills</h4>
-            <div class="skill-tags">
-              <span>FEA</span>
-              <span>CFD</span>
-              <span>Turbulence Modeling</span>
-              <span>Fluid-Structure Interaction</span>
-              <span>Wind Turbine Dynamics</span>
-              <span>Drone Design</span>
-              <span>Heat Transfer Analysis</span>
-              <span>3D Printing</span>
-              <span>CNC Milling</span>
-            </div>
-          </div>
-          <div class="skill-category">
-            <h4><i class="fas fa-laptop-code"></i> Software</h4>
-            <div class="skill-tags">
-              <span>ANSYS Fluent</span>
-              <span>ANSYS Mechanical</span>
-              <span>OpenFAST</span>
-              <span>SolidWorks</span>
-              <span>XFOIL</span>
-              <span>Fusion360</span>
-              <span>CATIA</span>
-              <span>OpenFOAM</span>
-            </div>
-          </div>
-          <div class="skill-category">
-            <h4><i class="fas fa-code"></i> Programming</h4>
-            <div class="skill-tags">
-              <span>Python</span>
-              <span>C++</span>
-              <span>Simulink</span>
-              <span>MATLAB</span>
-              <span>Arduino</span>
-              <span>LabVIEW</span>
-              <span>ROS</span>
-              <span>Machine Learning</span>
-            </div>
+          <div class="hero-social">
+            <a aria-label="LinkedIn" class="icon-link" href="https://www.linkedin.com/in/shreejik" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+            <a aria-label="GitHub" class="icon-link" href="https://github.com/achilles-05" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+            <a aria-label="Email" class="icon-link" href="mailto:shre0007@student.monash.edu"><i class="far fa-envelope"></i></a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- PUBLICATIONS SECTION -->
-  <section class="section publications-section" id="publications">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Publications</span>
-        <h2 class="section-title">Research &amp; Papers</h2>
+      <a class="scroll-cue" href="#about" aria-label="Scroll to About"><span class="mono">Scroll</span><span class="scroll-line"></span></a>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">01</span>
+          <span class="section-tag">About Me</span>
+        </div>
+        <div class="section-body">
+          <h2 class="reveal">Mechanical Engineer · Aerospace Enthusiast</h2>
+          <div class="prose reveal">
+            <p>Currently pursuing my Bachelor of Engineering (Honours) in Mechanical Engineering at Monash University, Melbourne, through the Monash-Mahindra 2+2 Dual Degree Program, following two years at Mahindra University, Hyderabad, with a CGPA of 9.5. My passion lies at the intersection of aerospace systems, computational fluid dynamics, and autonomous robotics.</p><p>I currently work on an automated robotic product-processing line at MMAPT Robotics, and specialize in FEA, CFD analysis, turbulence modeling, fluid-structure interaction and perception-driven control, with extensive experience in ANSYS Fluent, ANSYS Mechanical, OpenFAST, OpenFOAM, and ROS2.</p><p>My research interests include wall-bounded turbulence, adverse pressure gradient boundary layers and separation, data-driven models of wall shear stress, and high-fidelity simulation at scale.</p>
+          </div>
+          <div class="stats reveal">
+            <div class="stat">
+              <span class="stat-number" data-target="12">0</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="7">0</span>
+              <span class="stat-label">Internships</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="9.5">0</span>
+              <span class="stat-label">CGPA</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="1">0</span>
+              <span class="stat-label">Published Research</span>
+            </div>
+          </div>
+          <h3 class="sub-title reveal">Education</h3>
+          <div class="edu reveal">
+            <div class="edu-row">
+              <div>
+                <h4>Bachelor of Engineering (Honours)</h4>
+                <p>Mechanical Engineering · Monash University, Clayton, Melbourne</p>
+              </div>
+              <span class="mono">Expected June 2028</span>
+            </div>
+            <div class="edu-row">
+              <div>
+                <h4>Bachelor of Technology</h4>
+                <p>Mechanical Engineering · Mahindra University (École Centrale School of Engineering), Hyderabad</p>
+              </div>
+              <span class="mono">2024 - 2026 · CGPA 9.5/10</span>
+            </div>
+          </div>
+          <h3 class="sub-title reveal">Skills</h3>
+          <div class="skills reveal">
+            <div class="skill-row">
+              <h4>Aerodynamics &amp; Simulation</h4>
+              <ul class="chips"><li>CFD</li><li>ANSYS Fluent</li><li>OpenFOAM</li><li>OpenFAST</li><li>XFOIL</li><li>Turbulence Modelling (k-ω SST, k-ε)</li><li>RANS / URANS</li><li>Dynamic Meshing</li><li>Near-Wall Meshing &amp; y+ Control</li><li>Airfoil &amp; Wing Design</li><li>Fluid-Structure Interaction (FSI)</li><li>Wind Turbine Dynamics</li><li>Heat Transfer Analysis</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>Structures &amp; FEA</h4>
+              <ul class="chips"><li>FEA</li><li>ANSYS Mechanical / Workbench</li><li>Static, Fatigue &amp; Buckling Analysis</li><li>Structural Analysis</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>CAD &amp; Design</h4>
+              <ul class="chips"><li>SolidWorks</li><li>CATIA</li><li>Creo Parametric</li><li>Fusion 360</li><li>Onshape</li><li>Autodesk Inventor</li><li>AutoCAD</li><li>AutoCAD Civil 3D</li><li>Revit</li><li>Engineering Drawings &amp; BOMs</li><li>GD&amp;T &amp; Tolerance Stack-Ups</li><li>DFMA</li><li>Design Reviews</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>Manufacturing &amp; Workshop</h4>
+              <ul class="chips"><li>Lathe</li><li>Milling</li><li>Drilling</li><li>CNC Milling</li><li>3D Printing (FDM)</li><li>Laser Cutting</li><li>MIG / TIG / Arc Welding</li><li>Sheet Metal Work</li><li>Fitting, Tapping &amp; Threading</li><li>FMEA</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>Robotics &amp; Control</h4>
+              <ul class="chips"><li>Forward &amp; Inverse Kinematics</li><li>Workspace &amp; Reachability Analysis</li><li>Trajectory Generation</li><li>Path Planning &amp; Obstacle Avoidance</li><li>PID &amp; Closed-Loop Control</li><li>ROS / ROS2</li><li>Gazebo</li><li>Simulink</li><li>Industrial Robotics &amp; Robot Programming</li><li>Conveyors, Pick-and-Place &amp; Special Purpose Machines</li><li>Sensors (IR, Ultrasonic, Colour, IMU, Encoders)</li><li>Arduino (C/C++)</li><li>Raspberry Pi</li><li>Machine Vision (OpenCV)</li><li>UAV Systems &amp; Drone Design</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>Programming &amp; Data</h4>
+              <ul class="chips"><li>Python</li><li>NumPy</li><li>SciPy</li><li>pandas</li><li>Matplotlib</li><li>Plotly</li><li>OpenCV</li><li>scikit-learn</li><li>PyTorch</li><li>MATLAB</li><li>C / C++</li><li>LabVIEW</li><li>Git &amp; GitHub</li><li>LaTeX</li><li>Jupyter</li><li>Streamlit</li><li>HTML, CSS &amp; JavaScript</li><li>Power BI</li></ul>
+            </div>
+            <div class="skill-row">
+              <h4>Machine Learning &amp; AI</h4>
+              <ul class="chips"><li>Machine Learning</li><li>Surrogate Modelling</li><li>Uncertainty Quantification</li><li>Hyperparameter Tuning &amp; Cross-Validation</li><li>Computer Vision &amp; Image Processing</li><li>TensorRT Edge Deployment</li><li>RAG</li></ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="publications-grid">
-        <div class="publication-card">
-          <div class="project-badge award">Research paper accepted in ICSV32</div>
-          <div class="project-content">
-            <span class="project-category">Aerodynamics Research</span>
-            <h3>Vortex Induced Vibrations in Idling Wind Turbine Blades</h3>
-            <ul style="color: var(--text-color); margin-bottom: 1.5rem; padding-left: 1.2rem; line-height: 1.6;">
-              <li style="margin-bottom: 0.5rem;">Received a strong acceptance by International Congress of Sound & Vibration on the first attempt with unanimous
-                reviewer scores of 10/10.</li>
-              <li style="margin-bottom: 0.5rem;">Designed an end-to-end aeroelastic–CFD–ML pipeline for vortex-induced
-                vibrations in 15 MW wind turbine blades using dynamic meshing with k–ω SST turbulence closure.</li>
-              <li style="margin-bottom: 0.5rem;">Integrated high-fidelity CFD with a Gaussian Process Regressor
-                achieving ~0.8% RMSE for near-exact stress prediction over sparse sensor data.</li>
-              <li style="margin-bottom: 0.5rem;">Derived a pitch control strategy that reduced peak flap-wise stresses
-                by ~20%, demonstrating direct structural load mitigation for utility-scale turbines.</li>
-              <li>Conducted tuning-factor (Λ) resonance analysis to identify critical aeroelastic lock-in regimes under
-                operational wind conditions.</li>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section class="section" id="publications">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">02</span>
+          <span class="section-tag">Publications</span>
+        </div>
+        <div class="section-body">
+          <h2 class="reveal">Research &amp; Papers</h2>
+          <article class="pub reveal">
+            <div class="card-top">
+              <span class="eyebrow">Aerodynamics Research</span>
+              <span class="result">Published in ICSV32 · Mar 2026</span>
+            </div>
+            <h3>Vortex-induced Vibrations in 15MW Offshore Wind Turbine Blades</h3>
+            <p class="pub-authors">S. Kumawat, N. Datta - International Congress on Sound and Vibration (ICSV32), Istanbul, Turkey</p>
+            <ul class="bullets">
+              <li>Accepted on the first attempt with unanimous reviewer scores of 10/10.</li><li>Designed an end-to-end aeroelastic-CFD-ML pipeline using dynamic meshing with k-ω SST turbulence closure (URANS).</li><li>Coupled high-fidelity CFD with a Gaussian Process Regressor reconstructing blade stress from sparse sensor data at ~0.8% RMSE.</li><li>Derived a pitch control strategy that reduced peak flap-wise stresses by ~20%.</li><li>Ran tuning-factor (λ) resonance analysis to identify critical aeroelastic lock-in regimes.</li>
             </ul>
-            <div class="project-tech">
-              <span>ANSYS Fluent</span>
-              <span>OpenFAST</span>
-              <span>ANSYS Mechanical</span>
-              <span>URANS/DES</span>
+            <ul class="tags"><li>ANSYS Fluent</li><li>OpenFAST</li><li>ANSYS Mechanical</li><li>URANS</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">03</span>
+          <span class="section-tag">Experience</span>
+        </div>
+        <div class="section-body">
+          <h2 class="reveal">Professional Journey</h2>
+          <div class="xp-list">
+          <article class="xp reveal">
+            <span class="xp-date mono">Aug 2026 - Present</span>
+            <div>
+              <h3>Robotics &amp; Automation Intern</h3>
+              <p class="xp-org">MMAPT Robotics, Bosch Australia Headquarters</p>
+              <p>Operated and maintained an automated robotic product-processing line, where a 6-axis robotic arm picks, places and orients products through conveyor-fed imaging stations, processing, inspecting and labelling each item to work instructions. Handled mechanical troubleshooting on the line: adjusted parameters and re-aligned grippers and fixtures for new product sizes, and diagnosed sensor or camera-trigger faults to keep the line running.</p>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">May 2026 - Jul 2026</span>
+            <div>
+              <h3>Mechanical Engineering Summer Intern</h3>
+              <p class="xp-org">Megha Engineering &amp; Infrastructures Ltd. [MEIL]</p>
+              <p>Produced 3D models and fabrication drawings of pipe supports, equipment skids and structural steel for power generation and oil and gas plant projects, to project drafting standards. Assisted senior engineers with AutoCAD drafting and 3D modelling of site layout plans, equipment foundations and pipe support structures for state government infrastructure projects.</p>
             </div>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">Mar 2026 - May 2026</span>
+            <div>
+              <h3>CFD Consultancy Project Intern</h3>
+              <p class="xp-org">WindStream Technologies Pvt. Ltd.</p>
+              <p>Drove helical VAWT power output from 1 kW to 1.5 kW (+50%) through CFD-led flow attachment optimisation and cyclic loss reduction. Ran a parametric design study across rotor diameter, aspect ratio, blade curvature and helical twist angle to isolate the geometric drivers of aerodynamic efficiency and quantify the trade-offs.</p>
+            </div>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">Nov 2025 - Jan 2026</span>
+            <div>
+              <h3>Engineering Aerodynamics Intern</h3>
+              <p class="xp-org">Feynman Aerospace</p>
+              <p>Performed CFD-based lift, drag and wake characterisation for UAV and small-aircraft configurations across multiple flight regimes. Owned mesh generation, turbulence model selection and solution verification.</p>
+            </div>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">Oct 2025 - Nov 2025</span>
+            <div>
+              <h3>Project Intern</h3>
+              <p class="xp-org">Skyline Space</p>
+              <p>Applied fluidic propulsion theory and boundary layer analysis in ANSYS Fluent and contributed to preliminary aircraft design and optimisation exercises. Compared lift, drag and pressure distributions across candidate aerofoils and wing planforms to support configuration trade studies.</p>
+            </div>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">Jan 2025 - Jul 2025</span>
+            <div>
+              <h3>Research Intern - Virginia Tech x Mahindra Collaboration</h3>
+              <p class="xp-org">Thin Films Lab &amp; Fluid and Heat Transfer Lab, Mahindra University</p>
+              <p>Automated ferromagnetic resonance (FMR) testing on an R&amp;S ZNLE Vector Network Analyzer using LabVIEW and Python, cutting manual measurement setup time by 25%, in a Virginia Tech collaboration on chip-scale magnetocaloric cooling.</p>
+            </div>
+          </article>
+          <article class="xp reveal">
+            <span class="xp-date mono">Oct 2024 - Dec 2024</span>
+            <div>
+              <h3>CAD Intern</h3>
+              <p class="xp-org">Extrive Innovations Pvt. Ltd.</p>
+              <p>Modelled exosuit components to manufacturing-specification tolerances in Autodesk Inventor, contributing to a production-ready design package. Prepared detailed 2D engineering drawings with tolerances and a bill of materials, and iterated with the fabrication team on manufacturability.</p>
+            </div>
+          </article>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- EXPERIENCE SECTION -->
-  <section class="section experience-section" id="experience">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Experience</span>
-        <h2 class="section-title">Professional Journey</h2>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="fas fa-wind"></i>
-          </div>
-          <div class="timeline-content">
-            <h3>CFD Consultancy Project Intern</h3>
-            <h4>WindStream Technologies</h4>
-            <p class="timeline-date">Mar 2026 - May 2026</p>
-            <p>Conducted advanced computational fluid dynamics analysis to optimize aerodynamic performance and thermal
-              efficiency for energy systems.</p>
-          </div>
-        </div>
+    </section>
 
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="fas fa-plane"></i>
-          </div>
-          <div class="timeline-content">
-            <h3>Engineering Aerodynamics Intern</h3>
-            <h4>Feynman Aerospace</h4>
-            <p class="timeline-date">Nov 2025 - Jan 2026</p>
-            <p>Supported aerodynamic analysis of UAV and small-aircraft configurations, developing proficiency in
-              OpenVSP and VSPAERO. Conducted preliminary sizing, 3D CAD modeling, and CFD simulations using XFOIL and
-              OpenFOAM to evaluate lift/drag characteristics and optimize aerodynamic efficiency.</p>
-          </div>
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">04</span>
+          <span class="section-tag">Portfolio</span>
         </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="fas fa-rocket"></i>
-          </div>
-          <div class="timeline-content">
-            <h3>Project Intern</h3>
-            <h4>Skyline Space</h4>
-            <p class="timeline-date">Oct 2025 - Nov 2025</p>
-            <p>Contributed to spacecraft systems design and structural analysis, utilizing CAD tools and finite element
-              analysis to ensure mission parameters were met.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="fas fa-flask"></i>
-          </div>
-          <div class="timeline-content">
-            <h3>Research Intern</h3>
-            <h4>Thin Films/Fluid Heat Transfer Lab</h4>
-            <p class="timeline-date">Jan 2025 - Jul 2025</p>
-            <p>Researched fluid heat transfer characteristics in thin films, setting up experimental rigs and analyzing
-              thermal data to improve cooling system models.</p>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-marker">
-            <i class="fas fa-drafting-compass"></i>
-          </div>
-          <div class="timeline-content">
-            <h3>CAD Intern</h3>
-            <h4>Extrive Innovations</h4>
-            <p class="timeline-date">Oct 2024 - Dec 2024</p>
-            <p>Drafted detailed 3D CAD models for mechanical components and robotic assemblies, working closely with
-              senior engineers to iterate designs for manufacturing.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- PROJECTS SECTION -->
-  <section class="section projects-section" id="projects">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Portfolio</span>
-        <h2 class="section-title">Featured Projects</h2>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-badge award">Top 0.2% Globally (Gold Level)</div>
-          <div class="project-content">
-            <span class="project-category">Quant &amp; ML</span>
+        <div class="section-body">
+          <h2 class="reveal">Featured Projects</h2>
+          <div class="cards">
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Quant &amp; ML</span>
+              <span class="result">Top 0.2% Globally (Gold Level)</span>
+            </div>
             <h3>International Quant Championship by WQ BRAIN</h3>
-            <p>Developed predictive alpha formulas and mathematical trading models, overcoming correlation walls in
-              financial datasets. Ranked 34XX/1,50,000.</p>
-            <div class="project-tech">
-              <span>Python</span><span>Data Science</span><span>Quantitative Analysis</span>
+            <p>Developed predictive alpha formulas and mathematical trading models, overcoming correlation walls in financial datasets. Ranked 34XX/1,50,000.</p>
+            <ul class="tags"><li>Python</li><li>Data Science</li><li>Quantitative Analysis</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Aerodynamics</span>
+              <span class="result">Top 10 of 6,800+</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">Top 10 National Finalist</div>
-          <div class="project-content">
-            <span class="project-category">Aerodynamics</span>
             <h3>F1 Rear Wing Design &amp; CFD Validation - BITS Pilani</h3>
-            <p>Engineered and simulated a high-downforce F1 rear wing, validating performance through advanced CFD
-              analysis and turbulence modeling.</p>
-            <div class="project-tech">
-              <span>ANSYS Fluent</span><span>CFD</span><span>CAD</span>
+            <p>National Finalist (Round 3) in the APOGEE Airfoil Design Challenge. Designed and optimised a multi-element F1 rear wing (custom airfoils, slot-gap flow control, endplate vortex management) for maximum downforce under constraints. Sized slot gaps to re-energise the boundary layer and hold flow attached under adverse pressure gradient. Achieved Cl = 3.8, validated through CFD.</p>
+            <ul class="tags"><li>ANSYS Fluent</li><li>CFD</li><li>CAD</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Robotics</span>
+              <span class="result">1st Position</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
+            <h3>AI Student of the Year - 2-DOF Robotic Arm: Inverse Kinematics &amp; Motion Planning</h3>
+            <p>Perfect 100/100 score. Wrote a full inverse-kinematics solver and motion planner (900+ lines, Python) with an operator GUI mapping end-effector targets to joint-space trajectories in real time. Covered forward kinematics, multi-solution IK branch selection, workspace and reachability mapping, and obstacle avoidance with automatic re-planning and real-time animation.</p>
+            <ul class="tags"><li>Python</li><li>Robotics</li><li>IK Algorithms</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">CAD Design</span>
+              <span class="result">1st Position</span>
             </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">1st Position</div>
-          <div class="project-content">
-            <span class="project-category">Robotics</span>
-            <h3>AI Student of the Year - Inverse Kinematics Simulator</h3>
-            <p>Perfect 100/100 score. Implemented IK simulator for two-joint robotic arm with GUI-driven control,
-              obstacle avoidance, multi-path planning, and real-time animation. 900+ lines of algorithmic backend.</p>
-            <div class="project-tech">
-              <span>Python</span><span>Robotics</span><span>IK Algorithms</span>
-            </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">1st Position</div>
-          <div class="project-content">
-            <span class="project-category">CAD Design</span>
             <h3>Urban Rescue Bot - IEEE Robotics Competition</h3>
-            <p>Designed mechanically constrained rescue robot for post-earthquake navigation, debris handling, and
-              multi-robot assistance. Developed robotic CAD architecture in 4 hours enabling terrain traversal and
-              payload delivery.</p>
-            <div class="project-tech">
-              <span>Fusion360</span><span>CAD</span><span>Robotics</span>
+            <p>Designed a mechanically constrained rescue robot with a tool-assembly and payload-handling arm for post-earthquake debris navigation and multi-robot assistance. Delivered the complete CAD inside a 4-hour limit, covering terrain traversal, payload delivery and tool assembly.</p>
+            <ul class="tags"><li>Fusion360</li><li>CAD</li><li>Robotics</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Autonomous Systems</span>
+              <span class="result">National Qualifier</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
+            <h3>Vision-Guided Autonomous Navigation, Parrot Mambo Quadrotor - MATLAB Minidrone Competition 2025</h3>
+            <p>Navigated a Parrot Mambo quadrotor along an unmarked track using onboard downward vision as the only position reference, with no GPS. Built a real-time image-processing pipeline (thresholding, segmentation, path extraction) in MATLAB/Simulink feeding a PID navigation controller, tuning gains for stable tracking through curvature and intermittent detection dropout.</p>
+            <ul class="tags"><li>MATLAB</li><li>Simulink</li><li>Computer Vision</li><li>PID Control</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Aerospace</span>
+              <span class="result">Ranked 19th Nationally</span>
             </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">1st Round Qualified</div>
-          <div class="project-content">
-            <span class="project-category">Autonomous Systems</span>
-            <h3>Autonomous Visual Navigation Drone - MATLAB Global Competition</h3>
-            <p>Designed and simulated a path following autonomous Parrot Mambo drone in MATLAB Simulink with custom
-              flight logic. Developed image-processing pipeline for real-time path detection using thresholding and
-              filtering.</p>
-            <div class="project-tech">
-              <span>MATLAB</span><span>Simulink</span><span>Computer Vision</span><span>PID Control</span>
+            <h3>SAE India Autonomous Drone Development Competition</h3>
+            <p>Worked in a 10-member team and modelled a modular, lightweight, crash-resilient drone frame in SolidWorks.</p>
+            <ul class="tags"><li>SolidWorks</li><li>CAD</li><li>Drone Design</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Aeroacoustics</span>
+              <span class="result">LTRAC, Monash University</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
+            <h3>Supersonic Jet Screech Tone Analysis</h3>
+            <p>Identified the screech tone of an underexpanded supersonic jet at f = 27.776 kHz (St = 0.6418) from LabVIEW-acquired acoustic data. Segmented, windowed and averaged high-sample-rate microphone signals using Welch power spectral density analysis in Python to resolve the tonal peak above broadband noise.</p>
+            <ul class="tags"><li>LabVIEW</li><li>Python</li><li>Signal Processing</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Mechanical Design</span>
+              <span class="result">In Progress</span>
             </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">Ranked 19th Nationally</div>
-          <div class="project-content">
-            <span class="project-category">Aerospace</span>
-            <h3>SAE India Autonomous Drone Competition</h3>
-            <p>Worked in a team on an unmanned drone optimized for payload delivery and mission adaptability.
-              Contributed in payload mechanism design and efficiency analysis.</p>
-            <div class="project-tech">
-              <span>AutoCAD</span><span>Mechanicsm</span><span>Drone Design</span>
+            <h3>BedBridge Patient Transfer Device - MEC3416, Monash University</h3>
+            <p>Designing a transfer device for a non-weight-bearing patient to a minimum safety factor of 3 across eight load cases, in a team of 6. Own the CAD of the base and fixed handle in the team's shared model, and coordinate the team schedule, progress minutes, design documentation and drawing revisions.</p>
+            <ul class="tags"><li>Fusion 360</li><li>Onshape</li><li>Mechanical Design</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Aerodynamics</span>
+              <span class="result">In Progress</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
+            <h3>Flow Visualisation Project - Monash Human Power</h3>
+            <p>Developing flow visualisation methods (surface tufts, oil flow, smoke) for wind tunnel and track testing of the low-drag fairing, as a 2-person project entered in the Motorola grant program. Designing repeatable test procedures (tuft layout, camera positioning, lighting) so separation and transition can be compared run to run.</p>
+            <ul class="tags"><li>Flow Visualisation</li><li>Wind Tunnel Testing</li><li>Aerodynamics</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Propulsion</span>
+              <span class="result">Smart India Hackathon 2026</span>
             </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-badge award">Vice Head</div>
-          <div class="project-content">
-            <span class="project-category">Clubs</span>
+            <h3>Cold-Gas Thruster Static Test Stand</h3>
+            <p>Designed a thrust stand in SolidWorks and built it from machined aluminium and 3D printed parts, in a team of 6. Tested 3D-printed converging and converging-diverging nozzles against isentropic and choked-flow theory in Python, and traced a 12% thrust shortfall to regulator droop and throat roughness.</p>
+            <ul class="tags"><li>SolidWorks</li><li>3D Printing</li><li>Python</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Materials</span>
+              <span class="result">Mahindra University</span>
+            </div>
+            <h3>Composite Laminate Fabrication &amp; Tensile Testing</h3>
+            <p>Hand-laid and vacuum-bagged carbon and glass fibre laminate coupons, cured them and tensile-tested them to failure. Compared stiffness and strength against rule-of-mixtures and classical laminate theory, and inspected failure modes.</p>
+            <ul class="tags"><li>Composites</li><li>Tensile Testing</li><li>Classical Laminate Theory</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Robotics</span>
+              <span class="result">3rd Place</span>
+            </div>
+            <h3>RoboWARS, Mechanical Division - Mahindra University</h3>
+            <p>Designed and assembled a combat robot chassis with SolidWorks impact analysis and iterative redesign. Wired the motors, motor controllers and battery pack.</p>
+            <ul class="tags"><li>SolidWorks</li><li>Impact Analysis</li><li>Robotics</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Clubs</span>
+              <span class="result">Vice Head</span>
+            </div>
             <h3>AERO Club Mahindra University</h3>
-            <p>Leading mechanical design and analysis initiatives for aerospace projects and coordinating team efforts.
-            </p>
-            <div class="project-tech">
-              <span>SolidWorks</span><span>CAD</span><span>Mechanical Design</span>
+            <p>Directed mechanical design and structural analysis for live aerospace projects, coordinating a multi-discipline team through prototyping and design reviews. Led design reviews, prototyping and build sessions for UAV projects.</p>
+            <ul class="tags"><li>SolidWorks</li><li>CAD</li><li>Mechanical Design</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
+          <article class="card reveal">
+            <div class="card-top">
+              <span class="eyebrow">Clubs</span>
+              <span class="result">Aerodynamics Sub-Team</span>
             </div>
-            <div style="margin-top:20px;">
-              <a class="btn btn-secondary" href="https://github.com/achilles-05/Portfolio">See More Detail</a>
-            </div>
+            <h3>Monash Human Power, Monash University</h3>
+            <p>Member of a student team designing, manufacturing, testing and racing a human-powered vehicle.</p>
+            <ul class="tags"><li>Aerodynamics</li><li>Student Team</li><li>Human-Powered Vehicle</li></ul>
+            <a class="text-link" href="https://github.com/achilles-05/Portfolio" target="_blank" rel="noopener">See More Detail <i class="fas fa-arrow-right"></i></a>
+          </article>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- ACHIEVEMENTS SECTION -->
-  <section class="section achievements-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Achievements</span>
-        <h2 class="section-title">Recognition &amp; Excellence</h2>
-      </div>
-      <div class="achievements-grid">
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-medal"></i>
-          </div>
-          <h3>IIT-JEE Advanced</h3>
-          <p>Ranked among TOP 10% candidates (AIR 20K)</p>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">05</span>
+          <span class="section-tag">Achievements</span>
         </div>
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-trophy"></i>
+        <div class="section-body">
+          <h2 class="reveal">Recognition &amp; Excellence</h2>
+          <div class="ach-grid">
+          <div class="ach reveal">
+            <h3>IIT-JEE Advanced 2024</h3>
+            <p>Ranked among TOP 10% candidates (AIR 20K)</p>
           </div>
-          <h3>IAAC Gold Honor</h3>
-          <p>AIR 3 in International Astrophysics and Astronomy Competition 2022</p>
-        </div>
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-graduation-cap"></i>
+          <div class="ach reveal">
+            <h3>IAAC Gold Honor</h3>
+            <p>AIR 3 in International Astrophysics and Astronomy Competition 2022</p>
           </div>
-          <h3>NATMATSCI Scholarship</h3>
-          <p>110% scholarship to study at National Mathematics and Science College, London</p>
-        </div>
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-star"></i>
+          <div class="ach reveal">
+            <h3>NATMATSCI Scholarship</h3>
+            <p>110% scholarship to study at National Mathematics and Science College, London</p>
           </div>
-          <h3>SAT Score</h3>
-          <p>1560 marks (770 Reading &amp; Writing, 790 Math)</p>
-        </div>
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-award"></i>
+          <div class="ach reveal">
+            <h3>SAT Score</h3>
+            <p>1560 marks (770 Reading &amp; Writing, 790 Math)</p>
           </div>
-          <h3>Merit Scholarship Award</h3>
-          <p>Received scholarships worth ₹3,00,000 for top academic performance at Mahindra University</p>
-        </div>
-        <div class="achievement-card">
-          <div class="achievement-icon">
-            <i class="fas fa-language"></i>
+          <div class="ach reveal">
+            <h3>Merit Scholarship Award</h3>
+            <p>Received a merit scholarship worth ₹4,00,000 for top academic performance at Mahindra University</p>
           </div>
-          <h3>IELTS</h3>
-          <p>Scored band 8.5/9 overall (2022)</p>
+          <div class="ach reveal">
+            <h3>IELTS</h3>
+            <p>Scored band 8.5/9 overall (2022)</p>
+          </div>
+          <div class="ach reveal">
+            <h3>Batch Rank 1</h3>
+            <p>Ranked 1st of 100 at Mahindra University</p>
+          </div>
+          <div class="ach reveal">
+            <h3>Monash University Scholarship</h3>
+            <p>Awarded a Monash University scholarship worth AUD 20,000</p>
+          </div>
+          <div class="ach reveal">
+            <h3>PTE Academic</h3>
+            <p>Scored 90/90 overall (2026)</p>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- CONTACT SECTION -->
-  <section class="section contact-section" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Get In Touch</span>
-        <h2 class="section-title">Let's Connect</h2>
-      </div>
-      <div class="contact-content">
-        <div class="contact-info">
-          <h3>Reach Out</h3>
-          <p>Interested in aerospace engineering, CFD research, or robotics projects? Let's discuss how we can work
-            together.</p>
-          <div class="contact-items">
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container section-grid">
+        <div class="section-label">
+          <span class="section-num">06</span>
+          <span class="section-tag">Get In Touch</span>
+        </div>
+        <div class="section-body">
+          <h2 class="reveal">Let's Connect</h2>
+          <div class="contact-grid">
+            <div class="contact-info reveal">
+              <h3>Reach Out</h3>
+              <p>Interested in aerospace engineering, CFD research, or robotics projects? Let's discuss how we can work together.</p>
+              <div class="contact-rows">
+            <div class="contact-row">
+              <span class="mono">Email</span>
+              <a href="mailto:shre0007@student.monash.edu">shre0007@student.monash.edu</a>
+            </div>
+            <div class="contact-row">
+              <span class="mono">Phone</span>
+              <a href="tel:+61452563755">+61 452563755</a>
+            </div>
+            <div class="contact-row">
+              <span class="mono">LinkedIn</span>
+              <a href="https://www.linkedin.com/in/shreejik" target="_blank" rel="noopener">linkedin.com/in/shreejik</a>
+            </div>
+            <div class="contact-row">
+              <span class="mono">Location</span>
+              <span>Melbourne, Victoria</span>
+            </div>
               </div>
-              <div>
-                <h4>Email</h4>
-                <a href="mailto:shreejikumawat@gmail.com">shreejikumawat@gmail.com</a>
+              <div class="hero-social contact-social">
+                <a aria-label="LinkedIn" class="icon-link" href="https://www.linkedin.com/in/shreejik" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+            <a aria-label="GitHub" class="icon-link" href="https://github.com/achilles-05" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+            <a aria-label="Email" class="icon-link" href="mailto:shre0007@student.monash.edu"><i class="far fa-envelope"></i></a>
               </div>
             </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div>
-                <h4>Phone</h4>
-                <a href="tel:+919413337993">+91 9413337993</a>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fab fa-linkedin"></i>
-              </div>
-              <div>
-                <h4>LinkedIn</h4>
-                <a href="https://www.linkedin.com/in/shreejik" target="_blank">linkedin.com/in/shreejik</a>
-              </div>
-            </div>
-          </div>
-          <div class="social-links-large">
-            <a aria-label="LinkedIn" class="social-link-large" href="https://www.linkedin.com/in/shreejik"
-              target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a aria-label="GitHub" class="social-link-large" href="https://github.com/achilles-05" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-            <a aria-label="Email" class="social-link-large" href="mailto:shreejikumawat@gmail.com">
-              <i class="fas fa-envelope"></i>
-            </a>
+            <form class="contact-form reveal">
+              <label><span class="mono">Name</span><input placeholder="Your Name" required="" type="text" /></label>
+              <label><span class="mono">Email</span><input placeholder="Your Email" required="" type="email" /></label>
+              <label><span class="mono">Subject</span><input placeholder="Subject" required="" type="text" /></label>
+              <label><span class="mono">Message</span><textarea placeholder="Your Message" required="" rows="5"></textarea></label>
+              <button class="btn btn-solid" type="submit"><span>Send Message</span> <i class="fas fa-arrow-right"></i></button>
+            </form>
           </div>
         </div>
-        <form class="contact-form">
-          <div class="form-group">
-            <input placeholder="Your Name" required="" type="text" />
-          </div>
-          <div class="form-group">
-            <input placeholder="Your Email" required="" type="email" />
-          </div>
-          <div class="form-group">
-            <input placeholder="Subject" required="" type="text" />
-          </div>
-          <div class="form-group">
-            <textarea placeholder="Your Message" required="" rows="6"></textarea>
-          </div>
-          <button class="btn btn-primary" type="submit">
-            <span>Send Message</span>
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </form>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
+
   <!-- FOOTER -->
   <footer class="footer">
-    <div class="container">
-      <p>© 2024 Shreeji Kumawat. All rights reserved.</p>
-      <p class="footer-text">Engineering with innovation and excellence</p>
+    <div class="container footer-inner">
+      <p>© 2026 Shreeji Kumawat. All rights reserved.</p>
+      <p>Engineering with innovation and excellence</p>
+      <a class="mono" href="#home">Back to top ↑</a>
     </div>
   </footer>
-  <script src="script.js"></script>
+
+  <script src="script.js?v=3"></script>
 </body>
 
 </html>
